@@ -1,0 +1,70 @@
+#!/usr/bin/perl
+
+use strict;
+BEGIN {
+	$|  = 1;
+	$^W = 1;
+}
+
+use Test::More tests => 24;
+use File::Spec::Functions ':ALL';
+use Imager;
+use Imager::Search::RRGGBB;
+
+
+
+
+
+#####################################################################
+# Load the Test Files
+
+# Testing is done with bmp files, since that doesn't need external libs
+my $big_file   = catfile( 't', 'data', '02_simple', 'big.bmp' );
+my $small_file = catfile( 't', 'data', '02_simple', 'small.bmp' );
+ok( -f $big_file,   'Found big file'   );
+ok( -f $small_file, 'Found small file' );
+
+my $big = Imager->new;
+isa_ok( $big, 'Imager' );
+ok( $big->read( file => $big_file ), '->open ok' );
+is( $big->getchannels, 3, '->channels is 3' );
+is( $big->bits, 8, '->bits is 8' );
+
+my $small = Imager->new;
+isa_ok( $small, 'Imager' );
+ ok( $small->read( file => $small_file ), '->open ok' );
+is( $small->getchannels, 3, '->channels is 3' );
+is( $small->bits, 8, '->bits is 8' );
+
+
+
+
+
+
+#####################################################################
+# Test Construction
+
+my $search = Imager::Search::RRGGBB->new(
+	big   => $big,
+	small => $small,
+);
+isa_ok( $search, 'Imager::Search::RRGGBB' );
+isa_ok( $search->big,   'Imager' );
+isa_ok( $search->small, 'Imager' );
+
+# Get the small_string
+my $small_string = $search->_small_string;
+is( ref($small_string), 'SCALAR', '->_small_string returns a SCALAR' );
+is( length($$small_string), 644, '->_small_string correct length' );
+
+# Do a simple search
+my $position = $search->find_first;
+isa_ok( $position, 'Imager::Search::Match' );
+is( $position->left,     3,   '->left ok'      );
+is( $position->right,    15,  '->right ok'     );
+is( $position->top,      521, '->top ok'       );
+is( $position->bottom,   533, '->bottom ok'    );
+is( $position->width,    13,  '->width ok'     );
+is( $position->height,   13,  '->height ok'    );
+is( $position->center_x, 9,   '->center_x ok ' );
+is( $position->center_y, 527, '->center_y ok'  );
