@@ -52,12 +52,14 @@ METHODS
   small
     The "small" accessor returns the original small Imager object.
 
-  find_first
-    The "find_first" method is the only one implemented in this first
-    release of Imager::Search.
+  find
+    The "find" method compiles the search and target images in memory, and
+    executes a single search, returning the position of the first match as a
+    Imager::Search::Match object.
 
-    It compiles the search and target images in memory, and executes a
-    single search, returning the position of the first match as a
+  find_first
+    The "find_first" compiles the search and target images in memory, and
+    executes a single search, returning the position of the first match as a
     Imager::Search::Match object.
 
 SUPPORT
