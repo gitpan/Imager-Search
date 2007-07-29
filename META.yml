@@ -19,4 +19,4 @@ requires:
   Imager: 0.59
   Params::Util: 0.26
   perl: 5.005
-version: 0.01
+version: 0.02

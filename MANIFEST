@@ -15,8 +15,9 @@ Makefile.PL
 MANIFEST			This list of files
 META.yml
 README
-t/01_compile.t
-t/02_simple.t
+t/01_proof_of_concept.t
+t/02_compile.t
+t/03_simple.t
 t/99_author.t
 t/data/02_simple/big.bmp
 t/data/02_simple/small.bmp
