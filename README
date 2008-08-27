@@ -1,75 +1,21 @@
 NAME
-    Imager::Search - Locate an image inside another image
-
-SYNOPSIS
-      # Create the search
-      my $search = Imager::Search::RRBBGG->new(
-          big    => $large_imager_object,
-          small  => $small_imager_object,
-      );
-  
-      # Run the search
-      my $found = $search->find_first;
-  
-      # Handle the result
-      print "Found at row " . $found->top . " and column " . $found->left;
+    Imager::Search - Locate images inside other images
 
 DESCRIPTION
-    THIS MODULE IS CONSIDERED EXPERIMENTAL AND SUBJECT TO CHANGE
-
-    This module is designed to solve a conceptually simple problem.
-
-    Given two images (we'll call them Big and Small), where Small is
-    contained within Big zero or more times, determine the pixel locations
-    of Small within Big.
-
-    For example, given a screen shot or a rendered webpage, locate the
-    position of a known icon or picture within the larger image.
-
-    The intent is to provide functionality for use in various testing
-    scenarios, or desktop gui automation, and so on.
-
-METHODS
-  new
-      my $search = Imager::Search::RRBBGG->new(
-          big    => $large_imager_object,
-          small  => $small_imager_object,
-      );
-
-    The "new" constructor takes a new search object.
-
-    It takes two parameters by by default, for clarity simply named "big"
-    and "small". Both should be Imager objects.
-
-    The "small" param is the image you are searching for, and the "big"
-    param is the image you will be searching in.
-
-    Returns a new Imager::Search object, or croaks on error.
-
-  big
-    The "big" accessor returns the original big Imager object.
-
-  small
-    The "small" accessor returns the original small Imager object.
-
-  find
-    The "find" method compiles the search and target images in memory, and
-    executes a single search, returning the position of the first match as a
-    Imager::Search::Match object.
-
-  find_first
-    The "find_first" compiles the search and target images in memory, and
-    executes a single search, returning the position of the first match as a
-    Imager::Search::Match object.
+    To be completed.
 
 SUPPORT
-    No support is available for this module
+    No support is available for this module.
+
+    However, bug reports may be filed at the following URI.
+
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Imager-Search>
 
 AUTHOR
     Adam Kennedy <adamk@cpan.org>
 
 COPYRIGHT
-    Copyright 2007 Adam Kennedy.
+    Copyright 2007 - 2008 Adam Kennedy.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
