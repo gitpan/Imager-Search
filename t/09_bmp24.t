@@ -27,13 +27,13 @@ ok( -f $big, 'Found big file' );
 # Execute the search
 
 my $pattern = Imager::Search::Pattern->new(
-	driver => 'Imager::Search::Driver::HTML24',
+	driver => 'Imager::Search::Driver::BMP24',
 	file   => $small,
 );
 isa_ok( $pattern, 'Imager::Search::Pattern' );
 
 my $target = Imager::Search::Image::File->new(
-	driver => 'Imager::Search::Driver::HTML24',
+	driver => 'Imager::Search::Driver::BMP24',
 	file   => $big,
 );
 isa_ok( $target, 'Imager::Search::Image::File' );

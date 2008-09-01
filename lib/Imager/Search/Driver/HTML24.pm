@@ -1,16 +1,16 @@
-package Imager::Search::Driver::HTML8;
+package Imager::Search::Driver::HTML24;
 
 # Basic search driver implemented in terms of 8-bit
 # HTML-style strings ( #003399 )
 
-use 5.005;
+use 5.006;
 use strict;
 use Imager::Search::Match ();
 use base 'Imager::Search::Driver';
 
 use vars qw{$VERSION};
 BEGIN {
-	$VERSION = '0.11';
+	$VERSION = '0.12';
 }
 
 
@@ -27,7 +27,7 @@ sub match_object {
 	my $character = shift;
 
 	# Derive the pixel position from the character position
-	my $pixel   = $self->match_pixel( $character );
+	my $pixel = $character / 7;
 
 	# If the pixel position isn't an integer we matched
 	# at a position that is not a pixel boundary, and thus
@@ -59,14 +59,6 @@ sub match_object {
 	);
 }
 
-sub match_pixel {
-	$_[1] / 7;
-}
-
-sub pattern_newline {
-	__transform_pattern_newline($_[1]);
-}
-
 sub transform_pattern_newline {
 	return \&__transform_pattern_newline;
 }
@@ -75,37 +67,25 @@ sub transform_pattern_line {
 	return \&__transform_pattern_line;
 }
 
-sub transform_image_line {
-	return \&__transform_image_line;
+sub pattern_regexp {
+	my $self    = shift;
+	my $pattern = shift;
+	my $width   = shift;
+
+	# Assemble the regular expression
+	my $pixels  = $width - $pattern->width;
+	my $newline = '.{' . ($pixels * 7) . '}';
+	my $lines   = $pattern->lines;
+	my $string  = join( $newline, @$lines );
+
+	return qr/$string/si;
 }
 
-
-
-
-
-#####################################################################
-# Transform Functions
-
-sub __transform_pattern_line ($) {
-	my ($r, $g, $b, undef) = $_[0]->rgba;
-	return sprintf("#%02X%02X%02X", $r, $g, $b);
+sub pattern_newline {
+	my $self = shift;
+	
+	__transform_pattern_newline($_[1]);
 }
-
-sub __transform_image_line ($) {
-	my ($r, $g, $b, undef) = $_[0]->rgba;
-	return sprintf("#%02X%02X%02X", $r, $g, $b);
-};
-
-sub __transform_pattern_newline ($) {
-	return '.{' . ($_[0] * 7) . '}';
-}
-
-
-
-
-
-#####################################################################
-# Imager::Search::Driver Methods
 
 sub image_string {
 	my $self       = shift;
@@ -124,6 +104,22 @@ sub image_string {
 	return $scalar_ref;
 }
 
+
+
+
+
+#####################################################################
+# Transform Functions
+
+sub __transform_pattern_line ($) {
+	my ($r, $g, $b, undef) = $_[0]->rgba;
+	return sprintf("#%02X%02X%02X", $r, $g, $b);
+}
+
+sub __transform_pattern_newline ($) {
+	return '.{' . ($_[0] * 7) . '}';
+}
+
 1;
 
 __END__
@@ -132,11 +128,12 @@ __END__
 
 =head1 NAME
 
-Imager::Search::Driver::HTML8 - Simple Imager::Search::Driver using #RRBBGG strings
+Imager::Search::Driver::HTML24 - Simple driver using HTML #RRBBGG strings
 
 =head1 DESCRIPTION
 
-B<Imager::Search::Driver::HTML8> is a simple default driver for L<Imager::Search>.
+B<Imager::Search::Driver::HTML24> is a simple reference driver for
+L<Imager::Search>.
 
 It uses a HTML color string like #0033FF for each pixel, providing both a
 simple text expression of the colour, as well as a hash pixel separator.
@@ -144,14 +141,11 @@ simple text expression of the colour, as well as a hash pixel separator.
 Search patterns are compressed, so that a horizontal stream of identical
 pixels are represented as a single match group.
 
-Color-wise, an HTML8 search is considered to be 3-channel 8-bit.
-
-Support for 1-bit alpha transparency (ala "transparent gifs") is not
-currently supported but is likely be implemented in the future.
+Color-wise, an HTML24 search is considered to be 3-channel 8-bit.
 
 =head1 SUPPORT
 
-No support is available for this module
+See the SUPPORT section of the main L<Imager::Search> module.
 
 =head1 AUTHOR
 

@@ -9,7 +9,8 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Imager/Search.pm
 lib/Imager/Search/Driver.pm
-lib/Imager/Search/Driver/HTML8.pm
+lib/Imager/Search/Driver/BMP24.pm
+lib/Imager/Search/Driver/HTML24.pm
 lib/Imager/Search/Image.pm
 lib/Imager/Search/Image/Cached.pm
 lib/Imager/Search/Image/File.pm
@@ -29,11 +30,14 @@ t/05_image_cache.t
 t/06_image_screenshot.t
 t/07_match1.t
 t/08_match2.t
+t/09_bmp24.t
+t/10_bmp24_screenshot.t
 t/97_meta.t
 t/98_pod.t
 t/99_pmv.t
 t/data/basic/big1.bmp
 t/data/basic/big2.bmp
+t/data/basic/rgbw.bmp
 t/data/basic/small1.bmp
 t/data/basic/small2.bmp
 t/data/cached/trivial.txt

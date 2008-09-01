@@ -1,8 +1,9 @@
 ---
-abstract: 'Locate images inside other images'
+abstract: 'Find images within other images'
 author:
   - 'Adam Kennedy <adamk@cpan.org>'
 build_requires:
+  File::Remove: 1.42
   Test::File::Cleaner: 0.03
   Test::More: 0.42
 distribution_type: module
@@ -27,4 +28,4 @@ requires:
   perl: 5.6.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.11
+version: 0.12
