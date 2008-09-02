@@ -11,7 +11,7 @@ SYNOPSIS
       );
   
       # Load the image to search in
-      my $image = Imager::Search::Image::File->new(
+      my $image = Imager::Search::Image->new(
           driver => 'Imager::Search::Driver::HTML24',
           file   => 'target.bmp',
       );
@@ -33,6 +33,21 @@ DESCRIPTION
     regular expression engine and combines them to produce a simple pure
     perl image recognition engine for systems in which the images are pixel
     perfect.
+
+    And equally importantly, Imager::Search does it very very fast.
+
+    Benchmarking a simple program that continuously monitors a 1024x768
+    display for a single target image on a cheap 1.5Ghtz Windows machine
+    demonstrated a monitoring rate of 5 frames per second using the default
+    BMP24 driver.
+
+    That is, 0.2 seconds to capture the screenshot, convert it into a
+    searchable string, generate a search regexp, execute the regexp and then
+    convert the results into match objects.
+
+    Finally, Imager::Search itself is pure Perl, and should work quite
+    simply on any platform that the Imager module supports, which at time of
+    writing includes Windows, Mac OS X and most other forms of Unix.
 
   Use Cases
     Imager::Search is intended to be useful for a range of tasks involving
@@ -123,15 +138,15 @@ USAGE
 
   1. Load the Search Image
       # An image loaded from a file
-      use Imager::Search::Image::File ();
-      my $image = Imager::Search::Image::File->new(
+      use Imager::Search::Image ();
+      my $image = Imager::Search::Image->new(
           driver => 'Imager::Search::Driver::HTML24',
           file   => 'target.bmp',
       );
   
       # An image captured from a screenshot
-      use Imager::Search::Image::Screenshot ();
-      my $screen = Imager::Search::Image::Screenshot->new(
+      use Imager::Search::Screenshot ();
+      my $screen = Imager::Search::Screenshot->new(
           driver => 'Imager::Search::Driver::HTML24',
       );
 
@@ -154,6 +169,14 @@ CLASSES
     The following is the complete list of classes provided by the main
     Imager-Search distribution.
 
+  Imager::Search::Image
+    Imager::Search::Image implements the an image that will be searched
+    within.
+
+  Imager::Search::Screenshot
+    Imager::Search::Screenshot is a Imager::Search::Image subclass that
+    captures an image from the currently active window.
+
   Imager::Search::Pattern
     Imager::Search::Pattern provides compiled search pattern objects
 
@@ -167,30 +190,12 @@ CLASSES
     what any driver needs to implement.
 
   Imager::Search::Driver::HTML24
-    Imager::Search::Driver::HTML24 is an 8-bit reference driver that uses
+    Imager::Search::Driver::HTML24 is an 24-bit reference driver that uses
     HTML colour codes (#RRGGBB) to represent each pixel.
 
   Imager::Search::Driver::BMP24
-    Imager::Search::Driver::BMP24 is an experimental 24-bit driver that uses
-    the Windows BMP file format natively as it's image string format.
-
-  Imager::Search::Image
-    Imager::Search::Image describes the abstract interface for a search
-    image. This class also provides the main implementations of the core
-    search methods.
-
-  Imager::Search::Image::File
-    Imager::Search::Image::File provides an Imager::Search::Image sub-class
-    that allows the loading of search images from local files (of any image
-    type supported by your Imager installation).
-
-  Imager::Search::Image::Cached
-    Imager::Search::Image::Cached is a unsupported and only partially
-    implemented attempt at a caching mechanism for compiled Image objects.
-
-  Imager::Search::Image::Screenshot
-    Imager::Search::Image::Screenshot is a Imager::Search::Image subclass
-    that captures an image from the currently active window.
+    Imager::Search::Driver::BMP24 is a high performance 24-bit driver that
+    uses the Windows BMP file format natively for the image string format.
 
 SUPPORT
     No support is available for this module.

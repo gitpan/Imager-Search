@@ -12,11 +12,9 @@ lib/Imager/Search/Driver.pm
 lib/Imager/Search/Driver/BMP24.pm
 lib/Imager/Search/Driver/HTML24.pm
 lib/Imager/Search/Image.pm
-lib/Imager/Search/Image/Cached.pm
-lib/Imager/Search/Image/File.pm
-lib/Imager/Search/Image/Screenshot.pm
 lib/Imager/Search/Match.pm
 lib/Imager/Search/Pattern.pm
+lib/Imager/Search/Screenshot.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
@@ -26,7 +24,6 @@ t/01_proof_of_concept.t
 t/02_compile.t
 t/03_pattern.t
 t/04_image_file.t
-t/05_image_cache.t
 t/06_image_screenshot.t
 t/07_match1.t
 t/08_match2.t
