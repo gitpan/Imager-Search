@@ -21,13 +21,13 @@ applications that need to (visually) monitor an existing graphical system.
 use 5.006;
 use strict;
 use Carp                  ();
-use Params::Util          qw{ _ARRAY0 _INSTANCE };
+use Params::Util          ();
 use Imager::Screenshot    ();
 use Imager::Search::Image ();
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '1.00';
+	$VERSION = '1.01';
 	@ISA     = 'Imager::Search::Image';
 }
 
@@ -62,9 +62,9 @@ on error.
 sub new {
 	my $class  = shift;
 	my @params = ();
-	@params = @{shift()} if _ARRAY0($_[0]);
+	@params = @{shift()} if Params::Util::_ARRAY0($_[0]);
 	my $image = Imager::Screenshot::screenshot( @params );
-	unless ( _INSTANCE($image, 'Imager') ) {
+	unless ( Params::Util::_INSTANCE($image, 'Imager') ) {
 		Carp::croak('Failed to capture screenshot');
 	}
 
@@ -86,7 +86,7 @@ Adam Kennedy E<lt>adamk@cpan.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2007 - 2008 Adam Kennedy.
+Copyright 2007 - 2011 Adam Kennedy.
 
 This program is free software; you can redistribute
 it and/or modify it under the same terms as Perl itself.

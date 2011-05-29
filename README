@@ -3,20 +3,20 @@ NAME
 
 SYNOPSIS
       use Imager::Search ();
-  
-      # Load the pattern to search for
+      
+  # Load the pattern to search for
       my $pattern = Imager::Search::Pattern->new(
           driver => 'Imager::Search::Driver::HTML24',
           file   => 'pattern.bmp',
       );
-  
-      # Load the image to search in
+      
+  # Load the image to search in
       my $image = Imager::Search::Image->new(
           driver => 'Imager::Search::Driver::HTML24',
           file   => 'target.bmp',
       );
-  
-      # Execute the search
+      
+  # Execute the search
       my @matches = $image->find( $pattern );
       print "Found " . scalar(@matches) . " matches\n";
 
@@ -143,8 +143,8 @@ USAGE
           driver => 'Imager::Search::Driver::HTML24',
           file   => 'target.bmp',
       );
-  
-      # An image captured from a screenshot
+      
+  # An image captured from a screenshot
       use Imager::Search::Screenshot ();
       my $screen = Imager::Search::Screenshot->new(
           driver => 'Imager::Search::Driver::HTML24',
@@ -161,8 +161,8 @@ USAGE
   3. Execute the Search
       # Find the first match
       my $first = $image->find_first( $pattern );
-  
-      # Find all matches
+      
+  # Find all matches
       my @matches = $image->find( $pattern );
 
 CLASSES
@@ -208,7 +208,7 @@ AUTHOR
     Adam Kennedy <adamk@cpan.org>
 
 COPYRIGHT
-    Copyright 2007 - 2008 Adam Kennedy.
+    Copyright 2007 - 2011 Adam Kennedy.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
